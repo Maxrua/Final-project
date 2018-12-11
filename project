@@ -1,6 +1,17 @@
-int time;
-int duration = 1000;
-int begin = 0;
+import processing.sound.*;
+SoundFile sample;
+//int numFrames = 20;  // The number of frames in the animation
+//int currentFrame = 0;
+//PImage[] images = new PImage[numFrames];
+//String message = "YOU WIN";
+
+//float hr, vr;  // horizontal and vertical radius of the text
+
+
+int timer =0;
+int duration = 120;
+int time=120;
+int begin;
 PImage Q;
 PImage A;
 PImage B;
@@ -13,21 +24,40 @@ PImage H;
 PImage I;
 PImage J;
 PImage K;
+PImage L;
+PImage R;
+PImage S;
+PImage T;
 PFont myFont1;
 PFont myFont2;
 PFont myFont3;
+PFont myFont4;
+PFont myFont5;
+PFont myFont6;
+PFont myFont7;
+PFont myFont8;
+PFont myFont9;
+PFont myFont10;
 int numFrames = 4; // The number of frames
-int frame = 0;
+int frame = 8;
 float x, y;
+float xspeed = 8;
+float yspeed = 8;
+int xdirection =3;
+int ydirection =3;
 int m;
 int n;
-int a;
-boolean tick;
+int a=1600;
+int z;
+boolean myKey;
 void setup(){
-time = millis();
-  frameRate(450);
+ 
   size(1600, 745);
   background(0);
+  frameRate(500);
+   // Load a soundfile from the /data folder of the sketch and play it back
+  
+  time = millis();
   A = loadImage("TVg.png");
   B = loadImage("41.png");
   C = loadImage("safe.png");
@@ -40,45 +70,60 @@ time = millis();
   I = loadImage("calendar.png");
   J = loadImage("calendar2.png");
   K = loadImage("safe2.jpg");
+  L = loadImage("key.jpg");
+  R = loadImage("door2.png");
+  S = loadImage("key2.png");
+  T = loadImage("jumpscare.jpg");
+  
 time = millis();//store time
   smooth();
   strokeWeight(3);
+  image(Q,0,0);
+ sample = new SoundFile(this, "music.mp3");
+  sample.loop();
 }
 
+
 void draw(){
-   int s = second();
   
-  image(Q,0,0);
-  
+  if(millis() > 12000){
+    background(204,0,0);
+  myFont8 = createFont("You Are Dead", 200);
+  fill(0,0,0);
+  textFont(myFont8);
+  textAlign(CENTER, CENTER);
+  text("You Are Dead",800,400); }
+  int s = second();
+//  int s = second();
   if (keyCode == SHIFT){
-  time = duration-(millis()-begin)/1000;
-  fill(0,200,153);
-  textSize(30);
-  text(time,920,100);
+    
     image(B,0,0);
-  image(I,800,300);
+  image(I,800,200);
   image(A,1050,300);
   image(D,200,200);
   image(C,900,350);
   image(E,100,480);
-  image(F, mouseX,mouseY);}
+  image(F, mouseX-10,mouseY-10);}
 /*  fill(255);
   rect(400, 300, 100, 180);
   fill(0);
   ellipse(410, 390, 20, 20);*/
-
+  time = duration-(millis()-begin)/1000;
+  fill(205,0,0);
+  textSize(50);
+  text(time,1500,50);
 if(mouseX<200 && mouseY < 600 && mousePressed){
    background(0);
-  image(G,0,0);
+   image(G,0,0);
  }
  if(mouseX>1000 && mouseX<1400 && mouseY>300 && mouseY<350 && mousePressed){
- background(155);
- image(H,500,100);
- for (int i=0;i<=5*1200;i++) {
-      stroke(random(0,150));
+  background(0);
+   image(T,0,0);
+  for (int i=0;i<=5*1600;i++) {
+      stroke(random(0,275));
       x = random(0,a);
       y = random(0,a);
-      line(x,y,x+random(0,20),y);
+      line(x,y,x+random(0,s),y);
   }
   stroke(100,100);
   line(0,n,a,n);
@@ -91,9 +136,23 @@ if(mouseX<200 && mouseY < 600 && mousePressed){
   m++;
   if (m>a) {
     m=0;}
+   
+/*currentFrame = (currentFrame+1) % numFrames;  // Use % to cycle through frames
+  int offset = 0;
+  for (int x = -100; x < width; x += images[H].width) { 
+    image(images[(currentFrame+offset) % numFrames], x, -20);
+    offset+=2;
+    image(images[(currentFrame+offset) % numFrames], x, height/2);
+    offset+=2;}*/
+// image(H,500,100);
 }
-
-if(mouseX>700 && mouseX<900 && mouseY>300&& mouseY <350 && mousePressed){
+if(mouseX>400 && mouseX<600 && mouseY >100 && mouseY <500 && mousePressed){
+  myFont7 = createFont("LOCKED", 30);
+  fill(204,0,0);
+  textFont(myFont7);
+  textAlign(CENTER, CENTER);
+  text("LOCKED", 560, 400); }
+if(mouseX>700 && mouseX<900 && mouseY>100&& mouseY <250 && mousePressed){
   background(0,0,0);
   image(J,400,0);
  }
@@ -109,18 +168,66 @@ if (keyCode == CONTROL){
 background(0);
 image(K,500,100);
 }
+
+if( myKey == true){
+    myFont2 = createFont("2",50);
+  fill(204,0,0);
+  textFont(myFont2);
+  textAlign(CENTER,CENTER);
+  text("2", 850,350);
+  myKey = false;  
 }
+}
+
 void keyPressed(){
 
     if (key == '2') {
+      myKey = true;
+      /*
   myFont2 = createFont("2",50);
   fill(204,0,0);
   textFont(myFont2);
   textAlign(CENTER,CENTER);
-  text("2", 400,200);}
-  else if (key == '3'){
-    myFont3 = createFont("3",50);
+  text("2", 400,200);
+  */
+
+}
+  else if (key == '7'){
+    myFont3 = createFont("7",50);
     fill(204,0,0);
     textAlign(CENTER,CENTER);
-    text("3", 450,200);}
+    text("7", 880,350);}
+  else if(key == '3'){
+    myFont4 = createFont("3",50);
+    fill(204,0,0);
+    textAlign(CENTER,CENTER);
+    text("3",910,350);}
+  else if(key =='0'){
+    myFont5 = createFont("0",50);
+    textAlign(CENTER,CENTER);
+    text("0",940,350);}
+   /*else if(key =='6'){
+    myFont6 = createFont("0",50);
+    textAlign(CENTER,CENTER);} 
+    else if(key =='7'){
+    myFont7 = createFont("7",50);
+    textAlign(CENTER,CENTER);}*/
+   else if(keyCode == ENTER){
+    image(L,x,y);
+   myFont6 = createFont("Congratulation, you got the key!",3000);
+    fill(204,0,0);
+    textAlign(CENTER,CENTER);
+    text("Congratulation, you got the key!", 880,350);}
 }
+
+void mouseClicked(){
+background(0);
+image(R,200,200);
+image(S,200,200);
+myFont7 = createFont("You got out!",50);
+    fill(204,0,0);
+    textAlign(CENTER,CENTER);
+    text("You got out!",910,350);
+}
+
+  
